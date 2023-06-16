@@ -3,13 +3,13 @@ package us.km127pl.chatcore.utility;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import us.km127pl.chatcore.ChatCore;
 
 public enum Colors {
     TEAL("#94e2d5"),
     GREEN("#a6e3a1"),
     PEACH("#fab387"),
-    TEXT("#cdd6f4");
+    TEXT("#cdd6f4"),
+    LAVENDER("#b4befe");
 
     public final String color;
 
@@ -19,10 +19,6 @@ public enum Colors {
      */
     Colors(String color) {
         this.color = color;
-    }
-
-    public String getColor() {
-        return this.color;
     }
 
     /**

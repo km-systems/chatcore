@@ -1,2 +1,3 @@
+# Placeholders are allowed in all messages
 chat:
-  format: "<peach>%player%<teal>: <text>%message%"
+  format: "<teal>%Player_name% <lavender>» <text>{message}"
