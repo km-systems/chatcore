@@ -1,0 +1,4 @@
+name: chatcore
+version: '${project.version}'
+main: us.km127pl.chatcore.Chatcore
+api-version: "1.20"
