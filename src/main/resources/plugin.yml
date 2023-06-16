@@ -1,0 +1,6 @@
+name: chatcore
+version: '${project.version}'
+main: us.km127pl.chatcore.ChatCore
+api-version: "1.20"
+author: km127pl
+description: ChatCore plugin for Paper
