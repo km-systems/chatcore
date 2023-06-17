@@ -6,7 +6,9 @@ chat:
     pings:
       enabled: true
       format: "<peach>@<player><reset><text>"
-      ding: "ENTITY_EXPERIENCE_ORB_PICKUP" # set to "none" to disable
+      ding: true
+    broadcast:
+      format: "<red><bold>Broadcast<reset> <peach>» <text>"
 
 messages:
   no-recent-messages: "<red>There is no one to reply to!"

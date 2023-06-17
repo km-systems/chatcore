@@ -6,10 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import us.km127pl.chatcore.commands.chat.ChatCoreCommand;
-import us.km127pl.chatcore.commands.chat.IgnoreCommand;
-import us.km127pl.chatcore.commands.chat.MessageCommand;
-import us.km127pl.chatcore.commands.chat.ReplyCommand;
+import us.km127pl.chatcore.commands.chat.*;
 import us.km127pl.chatcore.listeners.ChatListener;
 import us.km127pl.chatcore.listeners.CommandPreprocessListener;
 import us.km127pl.chatcore.utility.IgnoreListManager;
@@ -54,6 +51,7 @@ public final class ChatCore extends JavaPlugin {
         commandManager.registerCommand(messageCommand);
         commandManager.registerCommand(new ReplyCommand());
         commandManager.registerCommand(new IgnoreCommand());
+        commandManager.registerCommand(new BroadcastCommand());
 
 
         // listeners
