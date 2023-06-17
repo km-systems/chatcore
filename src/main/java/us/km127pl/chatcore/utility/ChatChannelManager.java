@@ -3,14 +3,17 @@ package us.km127pl.chatcore.utility;
 import org.bukkit.entity.Player;
 import us.km127pl.chatcore.ChatCore;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Objects;
+import java.util.UUID;
 
 public class ChatChannelManager {
+    private final ChatCore plugin;
     public HashMap<String, ChannelInfo> chatChannels = new HashMap<>();
     public HashMap<UUID, String> playerChannels = new HashMap<>();
     public HashMap<Player, Boolean> socialSpy = new HashMap<>();
     public String defaultChannel;
-    private final ChatCore plugin;
 
     public ChatChannelManager(ChatCore chatCore) {
         this.plugin = chatCore;
@@ -18,8 +21,9 @@ public class ChatChannelManager {
 
     /**
      * Adds a chat channel
-     * @param name The name of the channel
-     * @param format The format of the channel
+     *
+     * @param name       The name of the channel
+     * @param format     The format of the channel
      * @param permission The permission required to talk in the channel
      */
     public void addChatChannel(String name, String format, String permission) {
@@ -32,10 +36,11 @@ public class ChatChannelManager {
 
     /**
      * Adds a chat channel
-     * @param name The name of the channel
-     * @param format The format of the channel
-     * @param permission The permission required to talk in the channel
-     * @param isDefault Whether the channel is the default channel
+     *
+     * @param name        The name of the channel
+     * @param format      The format of the channel
+     * @param permission  The permission required to talk in the channel
+     * @param isDefault   Whether the channel is the default channel
      * @param receiveFrom What other channels should this channel receive messages from
      */
     public void addChatChannel(String name, String format, String permission, boolean isDefault, String... receiveFrom) {
@@ -50,6 +55,7 @@ public class ChatChannelManager {
 
     /**
      * Removes a chat channel
+     *
      * @param name The name of the channel to remove
      */
     public void removeChatChannel(String name) {
@@ -87,9 +93,10 @@ public class ChatChannelManager {
 
     /**
      * Sends a message in a channel
+     *
      * @param channel The channel to send the message in
      * @param message The message to send
-     * @param player The player to send the message to
+     * @param player  The player to send the message to
      */
     public void sendMessageInChannel(String channel, String message, Player player) {
         ChannelInfo chatInfo = chatChannels.get(channel);

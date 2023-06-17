@@ -1,7 +1,10 @@
 package us.km127pl.chatcore.commands.chat;
 
 import co.aikar.commands.BaseCommand;
-import co.aikar.commands.annotation.*;
+import co.aikar.commands.annotation.CommandAlias;
+import co.aikar.commands.annotation.CommandCompletion;
+import co.aikar.commands.annotation.Default;
+import co.aikar.commands.annotation.Dependency;
 import org.bukkit.entity.Player;
 import us.km127pl.chatcore.ChatCore;
 import us.km127pl.chatcore.utility.ChatChannelManager;
