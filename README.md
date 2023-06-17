@@ -1,3 +1,16 @@
+<span style="display:flex;gap:.5em;justify-content:center;;align-items:center;">
+<a href="https://modrinth.com/plugin/chatcore">
+<img src="https://img.shields.io/badge/Modrinth-11111b?style=for-the-badge&logo=modrinth" alt="Modrinth" />
+</a>
+
+<a href="https://discord.gg/hQT8W434h3">
+<img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="discord">
+</a>
+
+<a href="https://www.spigotmc.org/resources/placeholderapi.6245/">
+<img src="https://img.shields.io/badge/Requires-PlaceholderAPI-11111b?style=for-the-badge&logo=openjdk&logoColor=white&labelColor=1e1e2e" alt="PlaceholderAPI"></a>
+</span>
+
 ![ChatCore Banner](assets/chatcore%20banner%20tra.png)
 
 Chat Core is a lightweight and easy-to-use Minecraft plugin designed to enhance your server's chat management capabilities. Whether you're running a small community server or a large network, Chat Core provides essential features and commands to streamline communication and improve player experience.
