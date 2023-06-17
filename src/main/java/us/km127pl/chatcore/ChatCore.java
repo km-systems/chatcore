@@ -13,6 +13,15 @@ public final class ChatCore extends JavaPlugin {
 
     public FileConfiguration configuration;
 
+    /**
+     * Gets a MiniMessage instance.
+     *
+     * @return A MiniMessage instance.
+     */
+    public static MiniMessage getMM() {
+        return MiniMessage.miniMessage();
+    }
+
     @Override
     public void onEnable() {
         // save default config
@@ -50,13 +59,5 @@ public final class ChatCore extends JavaPlugin {
         // reload config into memory
         this.configuration = this.getConfig();
 
-    }
-
-    /**
-     * Gets a MiniMessage instance.
-     * @return A MiniMessage instance.
-     */
-    public static MiniMessage getMM() {
-        return MiniMessage.miniMessage();
     }
 }
