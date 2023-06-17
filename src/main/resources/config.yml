@@ -35,4 +35,5 @@ messages:
   no-permission-to-join-channel: "<red>You don't have permission to join the channel <peach><channel><reset><red>!"
   already-in-channel: "<red>You are already in the channel <peach><channel><reset><red>!"
   joined-channel: "<green>You have joined the channel <peach><channel><reset><green>!"
+  may-not-whois: "<red>You may not use <teal>/whois<red> on <peach><player><reset><red>!"
   

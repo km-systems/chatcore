@@ -7,6 +7,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import us.km127pl.chatcore.commands.chat.*;
+import us.km127pl.chatcore.commands.utility.WhoisCommand;
 import us.km127pl.chatcore.listeners.ChatListener;
 import us.km127pl.chatcore.listeners.CommandPreprocessListener;
 import us.km127pl.chatcore.listeners.PlayerConnectionListener;
@@ -60,6 +61,7 @@ public final class ChatCore extends JavaPlugin {
         commandManager.registerCommand(new IgnoreCommand());
         commandManager.registerCommand(new BroadcastCommand());
         commandManager.registerCommand(new ChatChannelCommand());
+        commandManager.registerCommand(new WhoisCommand());
 
 
         // listeners
