@@ -1,6 +1,8 @@
+![ChatCore Banner](assets/chatcore%20banner%20tra.png)
+
 ## ChatCore
 
-ChatCore is a Minecraft plugin for chat management. It is designed to be lightweight and easy to use.
+Chat Core is a lightweight and easy-to-use Minecraft plugin designed to enhance your server's chat management capabilities. Whether you're running a small community server or a large network, Chat Core provides essential features and commands to streamline communication and improve player experience.
 
 ## Features
 
