@@ -9,6 +9,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import us.km127pl.chatcore.commands.chat.*;
 import us.km127pl.chatcore.listeners.ChatListener;
 import us.km127pl.chatcore.listeners.CommandPreprocessListener;
+import us.km127pl.chatcore.listeners.PlayerConnectionListener;
+import us.km127pl.chatcore.utility.ChatChannelManager;
 import us.km127pl.chatcore.utility.IgnoreListManager;
 
 import java.util.HashMap;
@@ -21,6 +23,7 @@ public final class ChatCore extends JavaPlugin {
 
     public static HashMap<UUID, UUID> recentMessages = new HashMap<>();
     public IgnoreListManager ignoreListManager;
+    public ChatChannelManager chatChannelManager;
 
     /**
      * Gets a MiniMessage instance.
@@ -43,6 +46,10 @@ public final class ChatCore extends JavaPlugin {
         ignoreListManager = new IgnoreListManager(this);
         ignoreListManager.load();
 
+        // load chat channels
+        chatChannelManager = new ChatChannelManager(this);
+        chatChannelManager.load();
+
         // register commands
         PaperCommandManager commandManager = new PaperCommandManager(this);
         commandManager.registerCommand(new ChatCoreCommand());
@@ -52,6 +59,7 @@ public final class ChatCore extends JavaPlugin {
         commandManager.registerCommand(new ReplyCommand());
         commandManager.registerCommand(new IgnoreCommand());
         commandManager.registerCommand(new BroadcastCommand());
+        commandManager.registerCommand(new ChatChannelCommand());
 
 
         // listeners
@@ -60,10 +68,14 @@ public final class ChatCore extends JavaPlugin {
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             pluginManager.registerEvents(new ChatListener(this), this);
             pluginManager.registerEvents(new CommandPreprocessListener(this), this);
+            pluginManager.registerEvents(new PlayerConnectionListener(this), this);
 
         } else {
             getLogger().warning("PlaceholderAPI not found! ChatCore will not work properly without it.");
         }
+
+        // register @channels completion
+        commandManager.getCommandCompletions().registerCompletion("channels", c -> chatChannelManager.chatChannels.keySet());
 
 
     }

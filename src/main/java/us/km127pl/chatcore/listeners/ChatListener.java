@@ -9,8 +9,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import us.km127pl.chatcore.ChatCore;
+import us.km127pl.chatcore.utility.ChatChannelManager;
 import us.km127pl.chatcore.utility.Messages;
 
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,9 +27,19 @@ public class ChatListener implements Listener {
     @EventHandler
     public void onChat(AsyncChatEvent event) {
         FileConfiguration config = ChatCore.configuration;
+        String channelName = plugin.chatChannelManager.playerChannels.get(event.getPlayer().getUniqueId());
+        ChatChannelManager.ChannelInfo channel = plugin.chatChannelManager.chatChannels.get(channelName);
 
-        String format = config.getString("chat.format", "<red>*<reset><white>[<red>%Player_name%<white>] <reset>{message}"); // gets the format from the config
+        // if no channel, set to default
+        if (channelName == null) {
+            channelName = plugin.chatChannelManager.defaultChannel;
+            channel = plugin.chatChannelManager.chatChannels.get(channelName);
+        }
+
+//        String format = config.getString("chat.format", "<red>*<reset><white>[<red>%Player_name%<white>] <reset>{message}"); // gets the format from the config
+        String format = channel.format;
         String message = ChatCore.getMM().serialize(event.message()); // gets the message from the event
+
 
         format = PlaceholderAPI.setPlaceholders(event.getPlayer(), format); // sets placeholders in the format
         format = format.replace("{message}", message); // replaces {message} with the message
@@ -60,7 +72,25 @@ public class ChatListener implements Listener {
         // disables 1.19+ chat reports
         event.setCancelled(true);
 
-        // sends the message to all players
-        Bukkit.broadcast(Messages.deserialize(format));
+        // sends the message to all players in the channel
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            // check if player even has a channel set, if no, set to default
+            plugin.chatChannelManager.playerChannels.computeIfAbsent(player.getUniqueId(), k -> plugin.chatChannelManager.defaultChannel);
+            // check if player is in the channel
+            if (plugin.chatChannelManager.playerChannels.get(player.getUniqueId()).equals(channelName)) {
+                player.sendMessage(Messages.deserialize(format));
+            }
+
+            // also check for the "receives" part
+            // debug
+            Bukkit.getLogger().info("receives: " + Arrays.toString(channel.receives));
+            if (channel.receives != null) {
+                for (String receive : channel.receives) {
+                    if (plugin.chatChannelManager.playerChannels.get(player.getUniqueId()).equals(receive)) {
+                        player.sendMessage(Messages.deserialize(format));
+                    }
+                }
+            }
+        }
     }
 }
