@@ -4,6 +4,7 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandCompletion;
 import co.aikar.commands.annotation.Default;
+import co.aikar.commands.annotation.Dependency;
 import co.aikar.commands.bukkit.contexts.OnlinePlayer;
 import org.bukkit.entity.Player;
 import us.km127pl.chatcore.ChatCore;
@@ -11,6 +12,9 @@ import us.km127pl.chatcore.utility.Messages;
 
 @CommandAlias("msg|message|tell|whisper|w")
 public class MessageCommand extends BaseCommand {
+
+    @Dependency
+    private ChatCore plugin;
 
     @Default
     @CommandCompletion("@players @nothing")
@@ -27,7 +31,7 @@ public class MessageCommand extends BaseCommand {
             return;
         }
 
-        //TODO: check if player is muted / in the target's ignore list
+        if (ReplyCommand.checkIfIgnored(player, message, plugin, target.getPlayer())) return;
 
         // add to recent messages
         ChatCore.recentMessages.put(player.getUniqueId(), target.getPlayer().getUniqueId());

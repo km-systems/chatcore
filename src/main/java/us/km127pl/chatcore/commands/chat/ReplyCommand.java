@@ -37,11 +37,28 @@ public class ReplyCommand extends BaseCommand {
             player.sendMessage(Messages.getConfigValue("messages.player-not-found", true));
             return;
         }
+        if (checkIfIgnored(player, message, plugin, Objects.requireNonNull(target.getPlayer()))) return;
         if (Objects.equals(target.getPlayer(), player)) {
             player.sendMessage(Messages.deserialize("<text>You <peach>» <teal>Yourself<peach>: <text>" + message)); // idk why you would want to do this but ok
             return;
         }
         player.sendMessage(Messages.deserialize("<text>You <peach>» <teal>" + target.getName() + "<peach>: <text>" + message));
         target.sendMessage(Messages.deserialize("<text>" + player.getName() + " <peach>» <teal>You<peach>: <text>" + message));
+    }
+
+    static boolean checkIfIgnored(Player player, String message, ChatCore plugin, Player target) {
+        if (plugin.ignoreListManager.isIgnored(target.getUniqueId(), player.getUniqueId())) {
+            // one sided ignore
+            player.sendMessage(Messages.deserialize("<text>You <peach>» <teal>" + target.getName() + "<peach>: <text>" + message));
+            // we don't want to send the message to the target, as they have the sender ignored lol
+            return true;
+        }
+
+        if (plugin.ignoreListManager.isIgnored(player.getUniqueId(), target.getUniqueId())) {
+            // one sided ignore
+            player.sendMessage(Messages.getConfigValue("messages.you-have-ignored", true));
+            return true;
+        }
+        return false;
     }
 }

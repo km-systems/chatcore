@@ -8,6 +8,7 @@ messages:
   no-recent-messages: "<red>There is no one to reply to!"
   player-not-found: "<red>The player <peach><player><reset><red> was not found!"
   player-not-online: "<red>The player <peach><player><reset><red> is not online!"
+  you-have-ignored: "<red>You cannot send messages to <peach><player><reset><red> because you have ignored them!"
   only-ascii: "<red>Only <peach>ASCII<reset><red> characters are allowed in names!"
   no-permission: "<red>You don't have permission to do that!"
   no-console: "<red>You can't do that from the console!"

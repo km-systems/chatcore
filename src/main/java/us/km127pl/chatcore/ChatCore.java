@@ -7,10 +7,12 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import us.km127pl.chatcore.commands.chat.ChatCoreCommand;
+import us.km127pl.chatcore.commands.chat.IgnoreCommand;
 import us.km127pl.chatcore.commands.chat.MessageCommand;
 import us.km127pl.chatcore.commands.chat.ReplyCommand;
 import us.km127pl.chatcore.listeners.ChatListener;
 import us.km127pl.chatcore.listeners.CommandPreprocessListener;
+import us.km127pl.chatcore.utility.IgnoreListManager;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -22,6 +24,7 @@ public final class ChatCore extends JavaPlugin {
 
     public static HashMap<UUID, UUID> recentMessages = new HashMap<>();
 
+
     /**
      * Gets a MiniMessage instance.
      *
@@ -31,6 +34,7 @@ public final class ChatCore extends JavaPlugin {
         return MiniMessage.miniMessage();
     }
 
+    public IgnoreListManager ignoreListManager;
 
     @Override
     public void onEnable() {
@@ -40,6 +44,10 @@ public final class ChatCore extends JavaPlugin {
         // load config into memory
         configuration = this.getConfig();
 
+        // load ignore list into memory
+        ignoreListManager = new IgnoreListManager(this);
+        ignoreListManager.load();
+
         // register commands
         PaperCommandManager commandManager = new PaperCommandManager(this);
         commandManager.registerCommand(new ChatCoreCommand());
@@ -47,6 +55,7 @@ public final class ChatCore extends JavaPlugin {
         messageCommand = new MessageCommand(); // we're saving the instance because the CommandPreprocessListener needs it
         commandManager.registerCommand(messageCommand);
         commandManager.registerCommand(new ReplyCommand());
+        commandManager.registerCommand(new IgnoreCommand());
 
 
         // listeners
@@ -66,6 +75,7 @@ public final class ChatCore extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        this.ignoreListManager.save();
     }
 
     /**
