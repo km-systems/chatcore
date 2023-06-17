@@ -8,6 +8,7 @@ import java.util.*;
 public class ChatChannelManager {
     public HashMap<String, ChannelInfo> chatChannels = new HashMap<>();
     public HashMap<UUID, String> playerChannels = new HashMap<>();
+    public HashMap<Player, Boolean> socialSpy = new HashMap<>();
     public String defaultChannel;
     private final ChatCore plugin;
 

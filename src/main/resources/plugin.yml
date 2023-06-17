@@ -10,29 +10,24 @@ commands:
     chatcore:
         description: ChatCore plugin command
         usage: /<command> [reload]
-        aliases: [cc]
-        permission: chatcore.manage
-        permission-message: You don't have permission to do that!
     msg:
         description: Send a private message to a player
         usage: /<command> <player> <message>
-        aliases: [m, tell, t, w, whisper, pm]
     r:
         description: Reply to a private message
         usage: /<command> <message>
-        aliases: [reply]
     ignore:
         description: Ignore a player
         usage: /<command> <player>
-        aliases: [ign]
-        permission-message: You don't have permission to do that!
     unignore:
         description: Unignore a player
         usage: /<command> <player>
-        aliases: [unign]
     broadcast:
         description: Broadcast a message
         usage: /<command> <message>
-        aliases: [bc]
-        permission: chatcore.broadcast
-        permission-message: You don't have permission to do that!
+    whois:
+        description: Get information about a player
+        usage: /<command> <player>
+    chat:
+        description: Change your chat channel
+        usage: /<command> <channel>
