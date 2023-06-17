@@ -30,6 +30,11 @@ public class ChatCoreCommand extends BaseCommand {
         player.sendMessage(Messages.deserialize("<text>/broadcast <peach>- <text>Send a broadcast message."));
         player.sendMessage(Messages.deserialize("<text>/ignore <lavender>[player] <peach>- <text>Ignore a player."));
         player.sendMessage(Messages.deserialize("<text>/ignore <lavender>list <peach>- <text>View your ignore list."));
+        player.sendMessage(Messages.deserialize("<text>/chat <lavender>[channel] <peach>- <text>Change your chat channel."));
+
+        // whois
+        player.sendMessage(Component.text("")); // separator
+        player.sendMessage(Messages.deserialize("<text>/whois <lavender>[player] <peach>- <text>View a player's information."));
     }
 
     @Subcommand("reload")

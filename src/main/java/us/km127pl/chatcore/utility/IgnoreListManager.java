@@ -9,8 +9,8 @@ import java.util.UUID;
 import java.util.logging.Level;
 
 public class IgnoreListManager {
-    public HashMap<UUID, ArrayList<UUID>> ignoreList;
     private final ChatCore plugin;
+    public HashMap<UUID, ArrayList<UUID>> ignoreList;
 
     public IgnoreListManager(ChatCore plugin) {
         this.ignoreList = new HashMap<>();

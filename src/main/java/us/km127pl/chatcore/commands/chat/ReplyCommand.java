@@ -60,5 +60,12 @@ public class ReplyCommand extends BaseCommand {
         }
         player.sendMessage(Messages.deserialize("<text>You <peach>» <teal>" + target.getName() + "<peach>: <text>" + message));
         target.sendMessage(Messages.deserialize("<text>" + player.getName() + " <peach>» <teal>You<peach>: <text>" + message));
+
+        // send to everyone with spy
+        for (Player spy : plugin.chatChannelManager.socialSpy.keySet()) {
+            // ignore if player is the sender or receiver
+            if (spy.equals(player) || spy.equals(target.getPlayer())) continue;
+            spy.sendMessage(Messages.deserialize("<peach><bold>SOCIALSPY<reset> <text>" + player.getName() + " <peach>» <teal>" + target.getPlayer().getName() + "<peach>: <text>" + message));
+        }
     }
 }
