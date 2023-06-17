@@ -24,6 +24,11 @@ public class IgnoreCommand extends BaseCommand {
 
     @Default
     public void onDefault(Player player, OnlinePlayer toIgnore) {
+        // check if the player can ignore
+        if (toIgnore.getPlayer().hasPermission("chatcore.ignore.bypass")) {
+            player.sendMessage(Messages.deserialize(Messages.getConfigValue("messages.may-not-ignore").replace("<player>", toIgnore.getPlayer().getName())));
+            return;
+        }
         if (plugin.ignoreListManager.isIgnored(player.getUniqueId(), toIgnore.getPlayer().getUniqueId())) {
             // unignore
             plugin.ignoreListManager.remove(player.getUniqueId(), toIgnore.getPlayer().getUniqueId());
