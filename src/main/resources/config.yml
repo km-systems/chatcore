@@ -5,6 +5,7 @@ chat:
     only-ascii: false
 
 messages:
+  no-recent-messages: "<red>There is no one to reply to!"
   player-not-found: "<red>The player <peach><player><reset><red> was not found!"
   player-not-online: "<red>The player <peach><player><reset><red> is not online!"
   only-ascii: "<red>Only <peach>ASCII<reset><red> characters are allowed in names!"

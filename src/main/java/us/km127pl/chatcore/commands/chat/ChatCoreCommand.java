@@ -1,4 +1,4 @@
-package us.km127pl.chatcore.commands;
+package us.km127pl.chatcore.commands.chat;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;

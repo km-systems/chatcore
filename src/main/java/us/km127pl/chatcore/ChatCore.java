@@ -6,14 +6,21 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import us.km127pl.chatcore.commands.ChatCoreCommand;
-import us.km127pl.chatcore.commands.MessageCommand;
+import us.km127pl.chatcore.commands.chat.ChatCoreCommand;
+import us.km127pl.chatcore.commands.chat.MessageCommand;
+import us.km127pl.chatcore.commands.chat.ReplyCommand;
 import us.km127pl.chatcore.listeners.ChatListener;
 import us.km127pl.chatcore.listeners.CommandPreprocessListener;
+
+import java.util.HashMap;
+import java.util.UUID;
 
 public final class ChatCore extends JavaPlugin {
 
     public static FileConfiguration configuration;
+    public static MessageCommand messageCommand;
+
+    public static HashMap<UUID, UUID> recentMessages = new HashMap<>();
 
     /**
      * Gets a MiniMessage instance.
@@ -24,7 +31,6 @@ public final class ChatCore extends JavaPlugin {
         return MiniMessage.miniMessage();
     }
 
-    public static MessageCommand messageCommand;
 
     @Override
     public void onEnable() {
@@ -37,8 +43,11 @@ public final class ChatCore extends JavaPlugin {
         // register commands
         PaperCommandManager commandManager = new PaperCommandManager(this);
         commandManager.registerCommand(new ChatCoreCommand());
-        messageCommand = new MessageCommand();
+
+        messageCommand = new MessageCommand(); // we're saving the instance because the CommandPreprocessListener needs it
         commandManager.registerCommand(messageCommand);
+        commandManager.registerCommand(new ReplyCommand());
+
 
         // listeners
         PluginManager pluginManager = getServer().getPluginManager();

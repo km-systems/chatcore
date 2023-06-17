@@ -1,4 +1,4 @@
-package us.km127pl.chatcore.commands;
+package us.km127pl.chatcore.commands.chat;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
@@ -26,11 +26,19 @@ public class MessageCommand extends BaseCommand {
             player.sendMessage(Messages.getConfigValue("messages.only-ascii", true));
             return;
         }
+
+        //TODO: check if player is muted / in the target's ignore list
+
+        // add to recent messages
+        ChatCore.recentMessages.put(player.getUniqueId(), target.getPlayer().getUniqueId());
+        ChatCore.recentMessages.put(target.getPlayer().getUniqueId(), player.getUniqueId());
+
         if (target.getPlayer().equals(player)) {
             player.sendMessage(Messages.deserialize("<text>You <peach>» <teal>Yourself<peach>: <text>" + message)); // idk why you would want to do this but ok
             return;
         }
         player.sendMessage(Messages.deserialize("<text>You <peach>» <teal>" + target.getPlayer().getName() + "<peach>: <text>" + message));
         target.getPlayer().sendMessage(Messages.deserialize("<text>" + player.getName() + " <peach>» <teal>You<peach>: <text>" + message));
+
     }
 }
