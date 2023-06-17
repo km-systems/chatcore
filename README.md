@@ -1,12 +1,12 @@
 ## ChatCore
 
-ChatCore is a plugin.
+ChatCore is a Minecraft plugin for chat management. It is designed to be lightweight and easy to use.
 
 ## Features
 
-- [ ] Chat formatting
+- [x] Chat formatting
 - [ ] Chat channels
-- [ ] Chat commands, (e.g. /msg, /r)
+- [x] Chat commands (e.g. /msg, /ignore)
 
 ## Dependencies
 
@@ -26,6 +26,14 @@ ChatCore is a plugin.
 - `/chatcore reload` - Reloads the plugin.
 - `/chatcore help` - Shows the help menu.
 - `/chatcore info` - Shows information about the plugin.
+
+- `/broadcast <message>` - Broadcasts a message to the server.
+
+- `/ignore <player>` - Ignores a player.
+- `/ignore list` - Lists all ignored players.
+
+- `/msg <player> <message>` - Sends a private message to a player.
+- `/reply <message>` - Replies to the last private message received.
 
 ## Permissions
 
