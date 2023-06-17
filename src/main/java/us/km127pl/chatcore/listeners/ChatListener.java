@@ -11,16 +11,15 @@ import org.bukkit.event.Listener;
 import us.km127pl.chatcore.ChatCore;
 import us.km127pl.chatcore.utility.Messages;
 
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ChatListener implements Listener {
 
-    private final ChatCore plugin;
+    private ChatCore plugin;
 
-    public ChatListener(ChatCore plugin) {
-        this.plugin = plugin;
+    public ChatListener(ChatCore chatCore) {
+        this.plugin = chatCore;
     }
 
     @EventHandler
@@ -52,7 +51,7 @@ public class ChatListener implements Listener {
                 }
                 format = format.replace("@" + player.getName().toLowerCase(), Messages.getConfigValue("chat.settings.pings.format")
                         .replace("<player>", player.getName()
-                        .replace("<sender>", event.getPlayer().getName())
+                                .replace("<sender>", event.getPlayer().getName())
                         ));
             }
 

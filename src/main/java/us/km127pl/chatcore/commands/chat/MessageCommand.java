@@ -26,7 +26,7 @@ public class MessageCommand extends BaseCommand {
     @Default
     public void onDefault(Player player, OnlinePlayer target, String message) {
         // check if message is not ascii
-        if (!Messages.isAscii(message) && ChatCore.configuration.getBoolean("chat.settings.only-ascii")) {
+        if (Messages.isNonASCII(message) && ChatCore.configuration.getBoolean("chat.settings.only-ascii")) {
             player.sendMessage(Messages.getConfigValue("messages.only-ascii", true));
             return;
         }

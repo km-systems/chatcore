@@ -16,6 +16,22 @@ public class ReplyCommand extends BaseCommand {
     @Dependency
     private ChatCore plugin;
 
+    static boolean checkIfIgnored(Player player, String message, ChatCore plugin, Player target) {
+        if (plugin.ignoreListManager.isIgnored(target.getUniqueId(), player.getUniqueId())) {
+            // one sided ignore
+            player.sendMessage(Messages.deserialize("<text>You <peach>» <teal>" + target.getName() + "<peach>: <text>" + message));
+            // we don't want to send the message to the target, as they have the sender ignored lol
+            return true;
+        }
+
+        if (plugin.ignoreListManager.isIgnored(player.getUniqueId(), target.getUniqueId())) {
+            // one sided ignore
+            player.sendMessage(Messages.getConfigValue("messages.you-have-ignored", true));
+            return true;
+        }
+        return false;
+    }
+
     @Default
     public void onDefault(Player player) {
         player.sendMessage(Messages.deserialize("<text>Usage: <peach>/reply <teal><message>"));
@@ -24,7 +40,7 @@ public class ReplyCommand extends BaseCommand {
     @Default
     public void onDefault(Player player, String message) {
         // check if message is not ascii
-        if (!Messages.isAscii(message) && ChatCore.configuration.getBoolean("chat.settings.only-ascii")) {
+        if (Messages.isNonASCII(message) && ChatCore.configuration.getBoolean("chat.settings.only-ascii")) {
             player.sendMessage(Messages.getConfigValue("messages.only-ascii", true));
             return;
         }
@@ -44,21 +60,5 @@ public class ReplyCommand extends BaseCommand {
         }
         player.sendMessage(Messages.deserialize("<text>You <peach>» <teal>" + target.getName() + "<peach>: <text>" + message));
         target.sendMessage(Messages.deserialize("<text>" + player.getName() + " <peach>» <teal>You<peach>: <text>" + message));
-    }
-
-    static boolean checkIfIgnored(Player player, String message, ChatCore plugin, Player target) {
-        if (plugin.ignoreListManager.isIgnored(target.getUniqueId(), player.getUniqueId())) {
-            // one sided ignore
-            player.sendMessage(Messages.deserialize("<text>You <peach>» <teal>" + target.getName() + "<peach>: <text>" + message));
-            // we don't want to send the message to the target, as they have the sender ignored lol
-            return true;
-        }
-
-        if (plugin.ignoreListManager.isIgnored(player.getUniqueId(), target.getUniqueId())) {
-            // one sided ignore
-            player.sendMessage(Messages.getConfigValue("messages.you-have-ignored", true));
-            return true;
-        }
-        return false;
     }
 }

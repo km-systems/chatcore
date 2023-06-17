@@ -67,14 +67,15 @@ public enum Messages {
 
     /**
      * Gets a config value from the config.yml.
+     *
      * @param path The path to the value.
+     * @return The value of the specified path.
      * @example <pre>
      *     String prefix = Nessages.getConfigValue("prefix");
      *     // prefix is now the value of the "prefix" key in the config.yml.
      *     // If the key does not exist, the default value from the `resources/config.yml` will be returned.
      * </pre>
-     * @return The value of the specified path.
-     * */
+     */
     public static String getConfigValue(String path) {
         String value = ChatCore.configuration.getString(path);
         return value == null ? "not found" : value;
@@ -82,14 +83,15 @@ public enum Messages {
 
     /**
      * Gets a config value from the config.yml.
+     *
      * @param path The path to the value.
+     * @return The value of the specified path.
      * @example <pre>
      *     String prefix = Nessages.getConfigValue("prefix");
      *     // prefix is now the value of the "prefix" key in the config.yml.
      *     // If the key does not exist, the default value from the `resources/config.yml` will be returned.
      * </pre>
-     * @return The value of the specified path.
-     * */
+     */
     public static Component getConfigValue(String path, boolean deserialize) {
         String value = getConfigValue(path);
 
@@ -102,14 +104,15 @@ public enum Messages {
 
     /**
      * Gets a config value from the config.yml.
+     *
      * @param path The path to the value.
+     * @return The value of the specified path.
      * @example <pre>
      *     String prefix = Nessages.getConfigValue("prefix");
      *     // prefix is now the value of the "prefix" key in the config.yml.
      *     // If the key does not exist, the default value from the `resources/config.yml` will be returned.
      * </pre>
-     * @return The value of the specified path.
-     * */
+     */
     public static Component getConfigValue(String path, Player player, boolean deserialize) {
         String value = getConfigValue(path);
         value = PlaceholderAPI.setPlaceholders(player, value);
@@ -123,20 +126,22 @@ public enum Messages {
 
     /**
      * Replaces a template string with a component
-     * @param template The template to replace.
+     *
+     * @param template  The template to replace.
      * @param component The component to replace the template with.
      * @return The template string with the component applied.
-     * */
+     */
     public static Component replaceTemplate(Component template, String key, Component component) {
         return MiniMessage.miniMessage().deserialize(MiniMessage.miniMessage().serialize(template.replaceText(builder -> builder.matchLiteral(key).replacement(component))));
     }
 
     /**
-     * Checks if a message is ASCII
+     * Checks if a message is not ASCII
+     *
      * @param message The message to check.
      * @return Whether the message is ASCII or not.
      */
-    public static boolean isAscii(String message) {
-        return message.matches("\\A\\p{ASCII}*\\z");
+    public static boolean isNonASCII(String message) {
+        return !message.matches("\\A\\p{ASCII}*\\z");
     }
 }

@@ -10,7 +10,7 @@ import java.util.logging.Level;
 
 public class IgnoreListManager {
     public HashMap<UUID, ArrayList<UUID>> ignoreList;
-    private ChatCore plugin;
+    private final ChatCore plugin;
 
     public IgnoreListManager(ChatCore plugin) {
         this.ignoreList = new HashMap<>();
@@ -19,6 +19,7 @@ public class IgnoreListManager {
 
     /**
      * Saves the ignore list to disk
+     *
      * @implNote this is saved to `/plugins/ChatCore/data/ignoreList.txt`
      * @implNote the format is "uuid=uuid1,uuid2,uuid3\n"
      */
@@ -59,6 +60,7 @@ public class IgnoreListManager {
 
     /**
      * Loads the ignore list from disk
+     *
      * @implNote this is loaded from `/plugins/ChatCore/data/ignoreList.txt`
      * @implNote the format is "uuid=uuid1,uuid2,uuid3\n"
      */
@@ -110,7 +112,8 @@ public class IgnoreListManager {
 
     /**
      * Adds a player to the ignore list
-     * @param uuid the player to add
+     *
+     * @param uuid    the player to add
      * @param ignored the player to ignore
      */
     public void add(UUID uuid, UUID ignored) {
@@ -123,7 +126,8 @@ public class IgnoreListManager {
 
     /**
      * Removes a player from the ignore list
-     * @param uuid the player to remove
+     *
+     * @param uuid    the player to remove
      * @param ignored the player to stop ignoring
      */
     public void remove(UUID uuid, UUID ignored) {
@@ -141,7 +145,8 @@ public class IgnoreListManager {
 
     /**
      * Checks if a player is ignoring another player
-     * @param by the player to check
+     *
+     * @param by      the player to check
      * @param ignored the player to check if they are ignoring
      * @return true if the player is ignoring the other player, false otherwise
      */

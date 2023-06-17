@@ -23,7 +23,7 @@ public final class ChatCore extends JavaPlugin {
     public static MessageCommand messageCommand;
 
     public static HashMap<UUID, UUID> recentMessages = new HashMap<>();
-
+    public IgnoreListManager ignoreListManager;
 
     /**
      * Gets a MiniMessage instance.
@@ -33,8 +33,6 @@ public final class ChatCore extends JavaPlugin {
     public static MiniMessage getMM() {
         return MiniMessage.miniMessage();
     }
-
-    public IgnoreListManager ignoreListManager;
 
     @Override
     public void onEnable() {
