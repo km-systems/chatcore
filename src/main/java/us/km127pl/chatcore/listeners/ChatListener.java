@@ -7,7 +7,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import us.km127pl.chatcore.ChatCore;
-import us.km127pl.chatcore.utility.Colors;
+import us.km127pl.chatcore.utility.Messages;
 
 public class ChatListener implements Listener {
 
@@ -31,6 +31,6 @@ public class ChatListener implements Listener {
         event.setCancelled(true);
 
         // sends the message to all players
-        Bukkit.broadcast(Colors.parseColors(format));
+        Bukkit.broadcast(Messages.deserialize(format));
     }
 }

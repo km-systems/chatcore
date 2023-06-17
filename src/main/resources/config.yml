@@ -1,3 +1,12 @@
 # Placeholders are allowed in all messages
 chat:
   format: "<teal>%Player_name% <lavender>» <text>{message}"
+  settings:
+    only-ascii: false
+
+messages:
+  player-not-found: "<red>The player <peach><player><reset><red> was not found!"
+  player-not-online: "<red>The player <peach><player><reset><red> is not online!"
+  only-ascii: "<red>Only <peach>ASCII<reset><red> characters are allowed in names!"
+  no-permission: "<red>You don't have permission to do that!"
+  no-console: "<red>You can't do that from the console!"

@@ -7,11 +7,13 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import us.km127pl.chatcore.commands.ChatCoreCommand;
+import us.km127pl.chatcore.commands.MessageCommand;
 import us.km127pl.chatcore.listeners.ChatListener;
+import us.km127pl.chatcore.listeners.CommandPreprocessListener;
 
 public final class ChatCore extends JavaPlugin {
 
-    public FileConfiguration configuration;
+    public static FileConfiguration configuration;
 
     /**
      * Gets a MiniMessage instance.
@@ -22,26 +24,34 @@ public final class ChatCore extends JavaPlugin {
         return MiniMessage.miniMessage();
     }
 
+    public static MessageCommand messageCommand;
+
     @Override
     public void onEnable() {
         // save default config
         this.saveDefaultConfig();
 
         // load config into memory
-        this.configuration = this.getConfig();
+        configuration = this.getConfig();
 
         // register commands
         PaperCommandManager commandManager = new PaperCommandManager(this);
         commandManager.registerCommand(new ChatCoreCommand());
+        messageCommand = new MessageCommand();
+        commandManager.registerCommand(messageCommand);
 
         // listeners
         PluginManager pluginManager = getServer().getPluginManager();
 
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             pluginManager.registerEvents(new ChatListener(this), this);
+            pluginManager.registerEvents(new CommandPreprocessListener(this), this);
+
         } else {
             getLogger().warning("PlaceholderAPI not found! ChatCore will not work properly without it.");
         }
+
+
     }
 
     @Override
@@ -57,7 +67,6 @@ public final class ChatCore extends JavaPlugin {
         this.reloadConfig();
 
         // reload config into memory
-        this.configuration = this.getConfig();
-
+        configuration = this.getConfig();
     }
 }
