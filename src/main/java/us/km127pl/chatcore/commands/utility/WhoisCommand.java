@@ -39,13 +39,24 @@ public class WhoisCommand extends BaseCommand {
         String ipAddress = Objects.requireNonNull(target.getPlayer().getAddress()).getAddress().getHostAddress();
         player.sendMessage(Messages.deserialize("<text> - <peach>IP: <text><hover:show_text:Click to copy the IP address><click:copy_to_clipboard:" + ipAddress + ">" + ipAddress + "</click>"));
         player.sendMessage(Messages.deserialize("<text> - <peach>Display name: <text>" + MiniMessage.miniMessage().serialize(target.getPlayer().displayName())));
-        player.sendMessage(Messages.deserialize("<text> - <peach>Health: " + target.getPlayer().getHealth() + "/" + target.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()));
+        player.sendMessage(Messages.deserialize("<text> - <peach>Health: <text>" + target.getPlayer().getHealth() + "/" + target.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()));
 
         Location location = target.getPlayer().getLocation();
-        player.sendMessage(Messages.deserialize("<text> - <peach>Location: <text><hover:show_text:Click to teleport><click:run_command:/tp " + player.getName() + " " + location.getX() + " " + location.getY() + " " + location.getZ() + ">" + location.getX() + " " + location.getY() + " " + location.getZ() + "</click>"));
+        player.sendMessage(Messages.deserialize("<text> - <peach>Location: <text><hover:show_text:Click to teleport><click:run_command:/tp " + player.getName() + " " +
+                location.getX() + " " +
+                location.getY() + " " +
+                location.getZ() + ">" + "X: " + toFixed(location.getX()) + " Y: " + toFixed(location.getY()) + " Z: " + toFixed(location.getZ()) + "</click>"));
         player.sendMessage(Messages.deserialize("<text> - <peach>World: <text>" + target.getPlayer().getWorld().getName()));
         player.sendMessage(Messages.deserialize("<text> - <peach>Game mode: <text>" + target.getPlayer().getGameMode()));
         player.sendMessage(Messages.deserialize("<text> - <peach>Operator: <text>" + target.getPlayer().isOp()));
+    }
 
+    private double toFixed(double value, int places) {
+        double scale = Math.pow(10, places);
+        return Math.round(value * scale) / scale;
+    }
+
+    private double toFixed(double value) {
+        return toFixed(value, 2);
     }
 }
