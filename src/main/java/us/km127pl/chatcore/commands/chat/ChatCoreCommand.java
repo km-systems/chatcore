@@ -2,6 +2,7 @@ package us.km127pl.chatcore.commands.chat;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
+import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import us.km127pl.chatcore.ChatCore;
 import us.km127pl.chatcore.utility.Messages;
@@ -23,6 +24,12 @@ public class ChatCoreCommand extends BaseCommand {
         player.sendMessage(Messages.deserialize("<text>- Commands:"));
         player.sendMessage(Messages.deserialize("<text>/chatcore reload <peach>- <text>Reloads the plugin."));
         player.sendMessage(Messages.deserialize("<text>/chatcore help <peach>- <text>Shows this help message."));
+
+        player.sendMessage(Component.text("")); // separator
+
+        player.sendMessage(Messages.deserialize("<text>/broadcast <peach>- <text>Send a broadcast message."));
+        player.sendMessage(Messages.deserialize("<text>/ignore <lavender>[player] <peach>- <text>Ignore a player."));
+        player.sendMessage(Messages.deserialize("<text>/ignore <lavender>list <peach>- <text>View your ignore list."));
     }
 
     @Subcommand("reload")

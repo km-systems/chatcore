@@ -26,7 +26,7 @@ public class ReplyCommand extends BaseCommand {
 
         if (plugin.ignoreListManager.isIgnored(player.getUniqueId(), target.getUniqueId())) {
             // one sided ignore
-            player.sendMessage(Messages.getConfigValue("messages.you-have-ignored", true));
+            player.sendMessage(Messages.deserialize(Messages.getConfigValue("messages.you-have-ignored").replace("<player>", target.getName())));
             return true;
         }
         return false;
