@@ -15,7 +15,7 @@ ChatCore is a Minecraft plugin for chat management. It is designed to be lightwe
 
 ## Installation
 
-1. Download the latest version of ChatCore from github releases.
+1. Download the latest version of ChatCore from [github releases(https://github.com/km-systems/chatcore/releases/tag/0.0.1)
 2. Put the jar file in your plugins folder.
 3. Restart your server.
 4. Configure the plugin to your liking.
