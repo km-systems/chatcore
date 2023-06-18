@@ -31,3 +31,6 @@ commands:
   chat:
     description: Change your chat channel
     usage: /<command> <channel>
+  alert:
+    description: Send an alert
+    usage: /<command> <message>

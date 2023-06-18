@@ -14,6 +14,10 @@ chat:
       ding: true
     broadcast:
       format: "<red><bold>Broadcast<reset> <peach>» <text>"
+    alert:
+      location: "title" # "action_bar", "title", "chat"
+      title: "<red><bold>ALERT<reset>"
+      subtitle: "<peach>{message}"
   channels:
     global:
       format: "<teal>%Player_name% <lavender>» <text>{message}"
