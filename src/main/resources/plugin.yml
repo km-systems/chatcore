@@ -1,5 +1,5 @@
 name: chatcore
-version: '${project.version}'
+version: '0.0.2'
 main: us.km127pl.chatcore.ChatCore
 api-version: "1.20"
 author: km127pl

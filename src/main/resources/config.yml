@@ -1,3 +1,5 @@
+check-for-updates: true
+
 # Placeholders are allowed in all messages
 chat:
   format: "<teal>%Player_name% <lavender>» <text>{message}"

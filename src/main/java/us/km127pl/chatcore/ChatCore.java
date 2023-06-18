@@ -1,6 +1,11 @@
 package us.km127pl.chatcore;
 
 import co.aikar.commands.PaperCommandManager;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -16,6 +21,13 @@ import us.km127pl.chatcore.listeners.PlayerConnectionListener;
 import us.km127pl.chatcore.utility.ChatChannelManager;
 import us.km127pl.chatcore.utility.IgnoreListManager;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -27,6 +39,9 @@ public final class ChatCore extends JavaPlugin {
     public static HashMap<UUID, UUID> recentMessages = new HashMap<>();
     public IgnoreListManager ignoreListManager;
     public ChatChannelManager chatChannelManager;
+
+    private static String USER_AGENT;
+    private static final String UPDATE_URI = "https://api.modrinth.com/v2/project/chatcore/version";
 
     /**
      * Gets a MiniMessage instance.
@@ -44,6 +59,9 @@ public final class ChatCore extends JavaPlugin {
 
         // load config into memory
         configuration = this.getConfig();
+
+        // update user agent
+        USER_AGENT = "ChatCore/" + this.getDescription().getVersion();
 
         // load ignore list into memory
         ignoreListManager = new IgnoreListManager(this);
@@ -83,7 +101,13 @@ public final class ChatCore extends JavaPlugin {
         // register @channels completion
         commandManager.getCommandCompletions().registerCompletion("channels", c -> chatChannelManager.chatChannels.keySet());
 
-
+        // check for updates on another thread to not block the main thread with a http request
+        Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
+            if (!isLatestVersion()) {
+                getLogger().warning("There is a new version of ChatCore available!");
+                getLogger().warning("Please update to the latest version from https://modrinth.com/plugin/chatcore");
+            }
+        });
     }
 
     @Override
@@ -101,5 +125,36 @@ public final class ChatCore extends JavaPlugin {
 
         // reload config into memory
         configuration = this.getConfig();
+    }
+
+    /**
+     * Checks if the plugin is up-to-date.
+     * @return true if the plugin is up-to-date, false if it is not.
+     * @implNote If the user has disabled update checking, this will always return true.
+     */
+    public boolean isLatestVersion() {
+        if (!this.getConfig().getBoolean("check-for-updates")) return true; // if the user has disabled update checking, return true
+
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(new URL(UPDATE_URI).toURI())
+                    .header("User-Agent", USER_AGENT)
+                    .build();
+
+            // send the request and get the response
+            String response = client.send(request, HttpResponse.BodyHandlers.ofString()).body();
+            JsonArray versions = JsonParser.parseString(response).getAsJsonArray();
+            JsonObject latestVersion = versions.get(versions.size() - 1).getAsJsonObject();
+
+            String latestVersionNumber = latestVersion.get("version_number").getAsString();
+
+            // return true if the latest version is the same as the current version
+            return latestVersionNumber.equals(this.getDescription().getVersion());
+        } catch (Exception e) {
+            // if there was an error, log it and return true
+            e.printStackTrace();
+            return true;
+        }
     }
 }
