@@ -32,6 +32,10 @@ public class PlayerConnectionListener implements Listener {
             format = ChatCore.configuration.getString("chat.join-message", "<yellow>%Player_name% joined the game");
         }
 
+        if (format.equals("")) {
+            return; // this part was disabled
+        }
+
         format = PlaceholderAPI.setPlaceholders(event.getPlayer(), format);
         event.joinMessage(Messages.deserialize(format));
 
@@ -41,6 +45,10 @@ public class PlayerConnectionListener implements Listener {
     public void onPlayerQuit(PlayerQuitEvent event) {
         // set the leave message
         String format = ChatCore.configuration.getString("chat.quit-message", "<yellow>%Player_name% left the game");
+
+        if (format.equals("")) {
+            return; // this part was disabled
+        }
 
         format = PlaceholderAPI.setPlaceholders(event.getPlayer(), format);
 
