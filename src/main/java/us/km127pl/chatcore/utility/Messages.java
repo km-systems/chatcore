@@ -144,4 +144,24 @@ public enum Messages {
     public static boolean isNonASCII(String message) {
         return !message.matches("\\A\\p{ASCII}*\\z");
     }
+
+    /**
+     * Strips colours from a component
+     *
+     * @param component The component to strip colours from
+     * @return The component with colours stripped
+     */
+    public static Component stripColours(Component component) {
+        return Component.text(MiniMessage.miniMessage().serialize(component).replaceAll("<.+?>", ""));
+    }
+
+    /**
+     * Strips colours from a string
+     *
+     * @param string The string to strip colours from
+     * @return The string with colours stripped
+     */
+    public static String stripColours(String string) {
+        return string.replaceAll("<.+?>", "");
+    }
 }

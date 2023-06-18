@@ -89,6 +89,7 @@ public class ChatListener implements Listener {
             }
         }
 
-        Bukkit.getLogger().info(format);
+        // log the message without colors
+        Bukkit.getLogger().info(Messages.stripColours(format));
     }
 }
