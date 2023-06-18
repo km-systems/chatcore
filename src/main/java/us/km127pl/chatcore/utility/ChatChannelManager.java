@@ -3,7 +3,6 @@ package us.km127pl.chatcore.utility;
 import org.bukkit.entity.Player;
 import us.km127pl.chatcore.ChatCore;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;

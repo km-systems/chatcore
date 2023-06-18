@@ -1,11 +1,9 @@
 package us.km127pl.chatcore;
 
 import co.aikar.commands.PaperCommandManager;
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonReader;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -21,9 +19,6 @@ import us.km127pl.chatcore.listeners.PlayerConnectionListener;
 import us.km127pl.chatcore.utility.ChatChannelManager;
 import us.km127pl.chatcore.utility.IgnoreListManager;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -33,15 +28,13 @@ import java.util.UUID;
 
 public final class ChatCore extends JavaPlugin {
 
+    private static final String UPDATE_URI = "https://api.modrinth.com/v2/project/chatcore/version";
     public static FileConfiguration configuration;
     public static MessageCommand messageCommand;
-
     public static HashMap<UUID, UUID> recentMessages = new HashMap<>();
+    private static String USER_AGENT;
     public IgnoreListManager ignoreListManager;
     public ChatChannelManager chatChannelManager;
-
-    private static String USER_AGENT;
-    private static final String UPDATE_URI = "https://api.modrinth.com/v2/project/chatcore/version";
 
     /**
      * Gets a MiniMessage instance.
@@ -129,11 +122,13 @@ public final class ChatCore extends JavaPlugin {
 
     /**
      * Checks if the plugin is up-to-date.
+     *
      * @return true if the plugin is up-to-date, false if it is not.
      * @implNote If the user has disabled update checking, this will always return true.
      */
     public boolean isLatestVersion() {
-        if (!this.getConfig().getBoolean("check-for-updates")) return true; // if the user has disabled update checking, return true
+        if (!this.getConfig().getBoolean("check-for-updates"))
+            return true; // if the user has disabled update checking, return true
 
         try {
             HttpClient client = HttpClient.newHttpClient();

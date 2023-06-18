@@ -12,13 +12,12 @@ import us.km127pl.chatcore.ChatCore;
 import us.km127pl.chatcore.utility.ChatChannelManager;
 import us.km127pl.chatcore.utility.Messages;
 
-import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ChatListener implements Listener {
 
-    private ChatCore plugin;
+    private final ChatCore plugin;
 
     public ChatListener(ChatCore chatCore) {
         this.plugin = chatCore;
@@ -36,7 +35,6 @@ public class ChatListener implements Listener {
             channel = plugin.chatChannelManager.chatChannels.get(channelName);
         }
 
-//        String format = config.getString("chat.format", "<red>*<reset><white>[<red>%Player_name%<white>] <reset>{message}"); // gets the format from the config
         String format = channel.format;
         String message = ChatCore.getMM().serialize(event.message()); // gets the message from the event
 
@@ -82,8 +80,6 @@ public class ChatListener implements Listener {
             }
 
             // also check for the "receives" part
-            // debug
-            Bukkit.getLogger().info("receives: " + Arrays.toString(channel.receives));
             if (channel.receives != null) {
                 for (String receive : channel.receives) {
                     if (plugin.chatChannelManager.playerChannels.get(player.getUniqueId()).equals(receive)) {
@@ -92,5 +88,7 @@ public class ChatListener implements Listener {
                 }
             }
         }
+
+        Bukkit.getLogger().info(format);
     }
 }

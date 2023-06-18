@@ -13,7 +13,9 @@
 
 ![ChatCore Banner](assets/chatcore%20banner%20tra.png)
 
-Chat Core is a lightweight and easy-to-use Minecraft plugin designed to enhance your server's chat management capabilities. Whether you're running a small community server or a large network, Chat Core provides essential features and commands to streamline communication and improve player experience.
+Chat Core is a lightweight and easy-to-use Minecraft plugin designed to enhance your server's chat management
+capabilities. Whether you're running a small community server or a large network, Chat Core provides essential features
+and commands to streamline communication and improve player experience.
 
 ## Features
 
@@ -28,7 +30,8 @@ Chat Core is a lightweight and easy-to-use Minecraft plugin designed to enhance 
 
 ## Installation
 
-1. Download the latest version of ChatCore from [github releases](https://github.com/km-systems/chatcore/releases/tag/0.0.1)
+1. Download the latest version of ChatCore
+   from [github releases](https://github.com/km-systems/chatcore/releases/tag/0.0.1)
 2. Put the jar file in your plugins folder.
 3. Restart your server.
 4. Configure the plugin to your liking.
