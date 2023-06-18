@@ -5,6 +5,7 @@ chat:
   format: "<teal>%Player_name% <lavender>» <text>{message}"
   join-message: "<peach>%Player_name%<text> has joined the game!"
   quit-message: "<peach>%Player_name%<text> has left the game!"
+  welcome-message: "<lavender>Welcome to the server, <peach>%Player_name%<text>!"
   settings:
     only-ascii: false
     pings:
