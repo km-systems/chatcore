@@ -20,7 +20,7 @@ and commands to streamline communication and improve player experience.
 ## Features
 
 - [x] Chat formatting
-- [ ] Chat channels
+- [x] Chat channels
 - [x] Chat commands (e.g. /msg, /ignore)
 
 ## Dependencies
