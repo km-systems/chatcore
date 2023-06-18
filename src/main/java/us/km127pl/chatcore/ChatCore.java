@@ -75,6 +75,7 @@ public final class ChatCore extends JavaPlugin {
         commandManager.registerCommand(new IgnoreCommand());
         commandManager.registerCommand(new BroadcastCommand());
         commandManager.registerCommand(new ChatChannelCommand());
+        commandManager.registerCommand(new ShoutCommand());
 
         commandManager.registerCommand(new WhoisCommand());
         commandManager.registerCommand(new SocialspyCommand());

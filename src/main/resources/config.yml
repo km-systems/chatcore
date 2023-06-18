@@ -18,6 +18,10 @@ chat:
       location: "title" # "action_bar", "title", "chat"
       title: "<red><bold>ALERT<reset>"
       subtitle: "<peach>{message}"
+    shout:
+      format: "<red><bold>SHOUT<reset> <peach>%Player_name% <lavender>» <text>{message}"
+      permission: "chatcore.shout"
+      range: 128
   channels:
     global:
       format: "<teal>%Player_name% <lavender>» <text>{message}"
@@ -49,4 +53,5 @@ messages:
   already-in-channel: "<red>You are already in the channel <peach><channel><reset><red>!"
   joined-channel: "<green>You have joined the channel <peach><channel><reset><green>!"
   may-not-whois: "<red>You may not use <teal>/whois<red> on <peach><player><reset><red>!"
+  not-in-ranged-channel: "<red>You are not in a ranged channel!"
   
