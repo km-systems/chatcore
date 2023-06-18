@@ -9,6 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import us.km127pl.chatcore.commands.admin.AlertCommand;
 import us.km127pl.chatcore.commands.admin.BroadcastCommand;
 import us.km127pl.chatcore.commands.admin.SocialspyCommand;
 import us.km127pl.chatcore.commands.chat.*;
@@ -74,9 +75,12 @@ public final class ChatCore extends JavaPlugin {
         commandManager.registerCommand(new IgnoreCommand());
         commandManager.registerCommand(new BroadcastCommand());
         commandManager.registerCommand(new ChatChannelCommand());
+        commandManager.registerCommand(new ShoutCommand());
 
         commandManager.registerCommand(new WhoisCommand());
         commandManager.registerCommand(new SocialspyCommand());
+
+        commandManager.registerCommand(new AlertCommand());
 
 
         // listeners

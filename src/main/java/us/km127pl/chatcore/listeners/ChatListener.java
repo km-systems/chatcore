@@ -70,26 +70,40 @@ public class ChatListener implements Listener {
         // disables 1.19+ chat reports
         event.setCancelled(true);
 
-        // sends the message to all players in the channel
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            // check if player even has a channel set, if no, set to default
-            plugin.chatChannelManager.playerChannels.computeIfAbsent(player.getUniqueId(), k -> plugin.chatChannelManager.defaultChannel);
-            // check if player is in the channel
-            if (plugin.chatChannelManager.playerChannels.get(player.getUniqueId()).equals(channelName)) {
-                player.sendMessage(Messages.deserialize(format));
-            }
-
-            // also check for the "receives" part
-            if (channel.receives != null) {
-                for (String receive : channel.receives) {
-                    if (plugin.chatChannelManager.playerChannels.get(player.getUniqueId()).equals(receive)) {
-                        player.sendMessage(Messages.deserialize(format));
-                    }
+        // check range
+        if (channel.range != -1) {
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                // we cannot use getNearbyEntities because it is not async
+                if (player.getLocation().distance(event.getPlayer().getLocation()) <= channel.range) {
+                    sendInChannel(format, player, channelName, channel);
                 }
             }
+            return;
+        }
+
+        // sends the message to all players in the channel
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            sendInChannel(format, player, channelName, channel);
         }
 
         // log the message without colors
         Bukkit.getLogger().info(Messages.stripColours(format));
+    }
+
+    public void sendInChannel(String format, Player player, String channelName, ChatChannelManager.ChannelInfo channel) {
+        plugin.chatChannelManager.playerChannels.computeIfAbsent(player.getUniqueId(), k -> plugin.chatChannelManager.defaultChannel);
+        // check if player is in the channel
+        if (plugin.chatChannelManager.playerChannels.get(player.getUniqueId()).equals(channelName)) {
+            player.sendMessage(Messages.deserialize(format));
+        }
+
+        // also check for the "receives" part
+        if (channel.receives != null) {
+            for (String receive : channel.receives) {
+                if (plugin.chatChannelManager.playerChannels.get(player.getUniqueId()).equals(receive)) {
+                    player.sendMessage(Messages.deserialize(format));
+                }
+            }
+        }
     }
 }

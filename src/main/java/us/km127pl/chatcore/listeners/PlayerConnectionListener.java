@@ -21,18 +21,34 @@ public class PlayerConnectionListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         plugin.chatChannelManager.playerChannels.put(event.getPlayer().getUniqueId(), plugin.chatChannelManager.defaultChannel);
 
-        // set the join message
-        String format = ChatCore.configuration.getString("chat.join-message", "<yellow>%Player_name% joined the game");
+        String format;
+
+        // check if the player has joined before
+        if (!event.getPlayer().hasPlayedBefore()) {
+            // first time player
+            format = ChatCore.configuration.getString("chat.welcome-message", "<yellow>%Player_name% joined the game for the first time");
+        } else {
+            // set the join message
+            format = ChatCore.configuration.getString("chat.join-message", "<yellow>%Player_name% joined the game");
+        }
+
+        if (format.equals("")) {
+            return; // this part was disabled
+        }
 
         format = PlaceholderAPI.setPlaceholders(event.getPlayer(), format);
-
         event.joinMessage(Messages.deserialize(format));
+
     }
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         // set the leave message
         String format = ChatCore.configuration.getString("chat.quit-message", "<yellow>%Player_name% left the game");
+
+        if (format.equals("")) {
+            return; // this part was disabled
+        }
 
         format = PlaceholderAPI.setPlaceholders(event.getPlayer(), format);
 
