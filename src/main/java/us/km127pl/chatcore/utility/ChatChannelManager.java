@@ -85,9 +85,6 @@ public class ChatChannelManager {
             if (isDefault) {
                 defaultChannel = key;
             }
-
-            //debug
-            plugin.getLogger().info("Chat Channel: " + key + " Format: " + format + " Permission: " + permission + " Default: " + isDefault + " Receives: " + Arrays.toString(receives));
         }
     }
 
