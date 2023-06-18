@@ -28,6 +28,12 @@ chat:
     staff:
       format: "<red><bold>STAFFCHAT<reset> <peach>%Player_name% <lavender>» <text>{message}"
       permission: "chat.staff"
+    nearby:
+      format: "<lavender>LOCAL<reset> <teal>%Player_name% <lavender>» <text>{message}"
+      permission: "chat.nearby"
+      range: 32
+      receives:
+        - "staff"
 
 messages:
   no-recent-messages: "<red>There is no one to reply to!"
